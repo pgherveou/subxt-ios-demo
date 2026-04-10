@@ -4,6 +4,8 @@ A proof-of-concept iOS app that subscribes to Polkadot Asset Hub blocks using [s
 
 The goal is to demonstrate that a shared Rust core (subxt) can power blockchain connectivity across platforms: iOS (this repo), browser/WASM ([subxt-wasm-demo](https://github.com/nicknisi/subxt-wasm-demo)), and potentially Android, desktop, etc.
 
+<img src="screenshot.png" width="300" alt="Simulator screenshot showing Asset Hub blocks streaming via light client">
+
 Supports two connection modes:
 
 - **Light Client** (default) -- connects directly to the Polkadot network via an embedded smoldot light client. No trusted third-party RPC endpoint required.
