@@ -1,0 +1,10 @@
+[package]
+name = "uniffi-bindgen"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "uniffi-bindgen"
+
+[dependencies]
+uniffi = { version = "0.28", features = ["cli"] }

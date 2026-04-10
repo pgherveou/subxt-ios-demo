@@ -1,0 +1,29 @@
+name: SubxtDemo
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "16.0"
+
+targets:
+  SubxtDemo:
+    type: application
+    platform: iOS
+    sources:
+      - path: .
+        excludes:
+          - project.yml
+      - path: ../generated/subxt_uniffi.swift
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+      MARKETING_VERSION: "1.0"
+      CURRENT_PROJECT_VERSION: "1"
+      OTHER_LDFLAGS:
+        - -lresolv
+        - -framework Security
+        - -framework SystemConfiguration
+      LIBRARY_SEARCH_PATHS:
+        - $(PROJECT_DIR)/../generated
+      SWIFT_OBJC_BRIDGING_HEADER: ""
+    dependencies:
+      - framework: ../generated/SubxtUniFFI.xcframework
+        embed: false
