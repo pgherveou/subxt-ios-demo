@@ -7,4 +7,4 @@ edition = "2024"
 name = "uniffi-bindgen"
 
 [dependencies]
-uniffi = { version = "0.28", features = ["cli"] }
+uniffi = { version = "0.31", features = ["cli"] }

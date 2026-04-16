@@ -8,24 +8,40 @@ class BlockSubscriber: ObservableObject {
     @Published var useLightClient = true
 
     static let maxBlocks = 100
-    private var handle: SubscriptionHandle?
+    private var task: Task<Void, Never>?
+    private var cancel: CancellationToken?
 
     func start() {
-        guard handle == nil else { return }
+        guard task == nil else { return }
+        print("[swift] start()")
         status = "Starting..."
         blocks = []
         isConnected = true
+
+        let token = CancellationToken()
+        cancel = token
 
         let listener = Listener(subscriber: self)
         let mode: ConnectionMode = useLightClient
             ? .lightClient
             : .rpc(url: "wss://polkadot-asset-hub-rpc.polkadot.io:443")
-        handle = subscribe(mode: mode, listener: listener)
+
+        task = Task {
+            do {
+                try await subscribe(mode: mode, cancel: token, listener: listener)
+            } catch {
+                status = "Error: \(error.localizedDescription)"
+            }
+            print("[swift] subscribe() returned, cleaning up")
+            isConnected = false
+        }
     }
 
     func stop() {
-        handle?.cancel()
-        handle = nil
+        print("[swift] stop() called")
+        cancel?.cancel()
+        cancel = nil
+        task = nil
         isConnected = false
         status = "Disconnected"
     }

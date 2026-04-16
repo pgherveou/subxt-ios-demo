@@ -13,12 +13,12 @@ subxt = { version = "0.50.0", default-features = false, features = [
     "jsonrpsee",
     "native",
 ] }
-uniffi = "0.28"
+uniffi = { version = "0.31", features = ["tokio"] }
 tokio = { version = "1", features = ["rt-multi-thread", "sync", "macros"] }
 thiserror = "2"
 
 [build-dependencies]
-uniffi = { version = "0.28", features = ["build"] }
+uniffi = { version = "0.31", features = ["build"] }
 
 [profile.release]
 opt-level = "z"
